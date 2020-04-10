@@ -9,24 +9,16 @@ const asyncHandler = require('../middleware/async');
 // @access Public
 exports.getCourses = asyncHandler(async (req, res, next) => {
 	if (req.params.bootcampId) {
-		const courses = Course.find({ bootcamp: req.params.bootcampId });
+		const courses = await Course.find({ bootcamp: req.params.bootcampId });
 
 		return res.status(200).json({
 			success: true,
 			count: courses.length,
-			data: courses,
+			data: courses
 		});
 	} else {
 		res.status(200).json(res.advancedResults);
 	}
-
-	const courses = await query;
-
-	res.status(200).json({
-		success: true,
-		count: courses.length,
-		data: courses,
-	});
 });
 
 // @desc   Get Single Courses
@@ -35,7 +27,7 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
 exports.getCourse = asyncHandler(async (req, res, next) => {
 	const course = await Course.findById(req.params.id).populate({
 		path: 'bootcamp',
-		select: 'name description',
+		select: 'name description'
 	});
 
 	if (!course) {
@@ -47,7 +39,7 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		data: course,
+		data: course
 	});
 });
 
@@ -80,7 +72,7 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		data: course,
+		data: course
 	});
 });
 
@@ -108,12 +100,12 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
 
 	course = await Course.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
-		runValidators: true,
+		runValidators: true
 	});
 
 	res.status(200).json({
 		success: true,
-		data: course,
+		data: course
 	});
 });
 
@@ -142,6 +134,6 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		data: {},
+		data: {}
 	});
 });
