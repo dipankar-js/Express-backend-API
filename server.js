@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const fileupload = require('express-fileupload');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -26,6 +27,8 @@ connectDB();
 const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 
 // Middleware
 if (process.env.NODE_ENV === 'development') {
@@ -35,6 +38,9 @@ if (process.env.NODE_ENV === 'development') {
 // File Uploading
 app.use(fileupload());
 
+// Sanitize data
+app.use(mongoSanitize());
+
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,6 +48,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/users', users);
+app.use('/api/v1/reviews', reviews);
 
 app.use(errorHandler);
 
