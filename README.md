@@ -3,6 +3,12 @@
 
 Backend API for a bootcamp company to manage bootcamps, courses, reviews, users and authentication
 
+### Run this API locally
+* Clone the repo
+* run cmd - npm install
+* Place your own mongo URI from mLab in config/config.env file 
+* run cmd - npm run dev
+
 ## Indices
 
 * [Bootcamps](#bootcamps)
